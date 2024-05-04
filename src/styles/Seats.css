@@ -1,0 +1,19 @@
+.seats {
+    display: inline-block;
+}
+
+.row {
+    display: flex;
+}
+
+.seat {
+    width: 30px;
+    height: 30px;
+    margin: 5px;
+    border: 1px solid black;
+    cursor: pointer;
+}
+
+.selected {
+    background-color: green; /* Change to your preferred selected color */
+}

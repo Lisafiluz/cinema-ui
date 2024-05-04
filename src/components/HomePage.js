@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Navbar from './Navbar';
 import MovieCard from './MovieCard';
+import Seats from "./Seats";
 
 const API_BASE_URL = 'http://localhost:8080';
 const HomePage = () => {
@@ -49,6 +50,7 @@ const HomePage = () => {
 						))}
 					</div>
 				</div>
+				<Seats />
 			</div>
 	);
 };
