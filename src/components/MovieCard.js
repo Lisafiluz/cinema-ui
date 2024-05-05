@@ -1,11 +1,28 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+import '../styles/Card.css'
+import 'bootstrap/dist/css/bootstrap.min.css'; // Import Bootstrap CSS
 
-const MovieCard = ({ movie }) => {
+const Card = ({ movie }) => {
 	// Construct the image URL (you may need to prepend a base URL for images)
 	const imageUrl = `https://image.tmdb.org/t/p/w500${movie.picUrl}`;
 
 	return (
-			<div className="card" style={{ width: '18rem' }}>
+		<>
+		<img src={imageUrl} className="" alt={movie.title} />
+		<div class="caption">
+			<h5 className="">{movie.title}</h5>
+			<p className="">{movie.description}</p>
+			<p className="">Rating: {movie.review}</p>
+			<p className="">Genre: {movie.genre}</p>
+			<p className="">Release Date: {new Date(movie.releaseDate).getFullYear()}</p>
+			<p>
+				<a href={`/movie/${movie.movieId}`} class="btn btn-primary" role="button">Order</a> 
+				{/* <a href="#" class="btn btn-default" role="button">Button</a> */}
+			</p>
+		</div>
+		{/* <div className="card" style={{ width: '18rem' }}>
+				<Link key={movie.movieId} to={`/movie/${movie.movieId}`} className="link">
 				<img src={imageUrl} className="card-img-top" alt={movie.title} />
 				<div className="card-body">
 					<h5 className="card-title">{movie.title}</h5>
@@ -13,10 +30,11 @@ const MovieCard = ({ movie }) => {
 					<p className="card-text">Rating: {movie.review}</p>
 					<p className="card-text">Genre: {movie.genre}</p>
 					<p className="card-text">Release Date: {new Date(movie.releaseDate).getFullYear()}</p>
-					{/* Add more movie details as needed */}
 				</div>
-			</div>
+			</Link>
+		</div> */}
+		</>
 	);
 };
 
-export default MovieCard;
+export default Card;
