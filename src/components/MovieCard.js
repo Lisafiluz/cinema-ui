@@ -3,22 +3,23 @@ import '../styles/Card.css'
 import 'bootstrap/dist/css/bootstrap.min.css'; // Import Bootstrap CSS
 
 const Card = ({movie}) => {
-	// Construct the image URL (you may need to prepend a base URL for images)
-	const imageUrl = `https://image.tmdb.org/t/p/w500${movie.picUrl}`;
-
 	return (
 			<>
-				<img src={imageUrl} className="" alt={movie.title}/>
-				<div className="caption">
-					<h5 className="">{movie.title}</h5>
-					<p className="">{movie.description}</p>
-					<p className="">Rating: {movie.review}</p>
-					<p className="">Genre: {movie.genre}</p>
-					<p className="">Release Date: {new Date(movie.releaseDate).getFullYear()}</p>
-					<p>
-						<a href={`/movie/${movie.movieId}`} className="btn btn-primary" role="button">Order</a>
-						{/* <a href="#" class="btn btn-default" role="button">Button</a> */}
-					</p>
+				<div className="card caption card-cont">
+					<div className="movie-card-desc">
+						<h5 className="">{movie.title}</h5>
+						<div className="">{movie.description}</div>
+						<div className="">Rating: {movie.review}</div>
+						<div className="">Genre: {movie.genre}</div>
+						<div className="">Release Date: {new Date(movie.releaseDate).getFullYear()}</div>
+						<div>
+							<a href={`/movie/${movie.movieId}`} className="btn btn-outline-primary" role="button">Order</a>
+							{/* <a href="#" class="btn btn-default" role="button">Button</a> */}
+						</div>
+					</div>
+					<div>
+						<img src={movie.picUrl} className="" alt={movie.title}/>
+					</div>
 				</div>
 				{/* <div className="card" style={{ width: '18rem' }}>
 				<Link key={movie.movieId} to={`/movie/${movie.movieId}`} className="link">

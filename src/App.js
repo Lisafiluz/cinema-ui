@@ -7,6 +7,7 @@ import 'bootstrap/dist/css/bootstrap.min.css'; // Import Bootstrap CSS
 import SignInPage from './components/SignInPage';
 import ConfirmationPage from './components/ConfirmationPage';
 import MyOrdersPage from './components/MyOrdersPage';
+import SignUpPage from "./components/SignUpPage";
 
 const App = () => {
 	return (
@@ -14,6 +15,7 @@ const App = () => {
 				<Routes>
 					<Route path="/" element={<HomePage/>}/>
 					<Route path="/signin" element={<SignInPage/>}/>
+					<Route path="/signup" element={<SignUpPage/>}/>
 					<Route path="/orders" element={<MyOrdersPage/>}/>
 					<Route path="/movie/:movieId" element={<MovieDetailsPage/>}/>
 					<Route path="/screen/:screenId" element={<ScreenPage/>}/>

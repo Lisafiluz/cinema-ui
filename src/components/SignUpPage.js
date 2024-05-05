@@ -4,12 +4,12 @@ import '../styles/Signin.css';
 import {SERVER_HOST} from '../config';
 import Navbar from "./Navbar";
 
-function SignInPage() {
+function SignUpPage() {
 	const [username, setUsername] = useState('');
 	const [password, setPassword] = useState('');
 
-	const handleLogin = () => {
-		fetch(`${SERVER_HOST}/api/auth/signin`, {
+	const handleSignUp = () => {
+		fetch(`${SERVER_HOST}/api/auth/signup`, {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json'
@@ -23,12 +23,10 @@ function SignInPage() {
 				.then(data => {
 					if (data.success) {
 						sessionStorage.setItem('jwt', data.entities[0].jwt);
-						sessionStorage.setItem('username', data.entities[0].username);
-						const previousPath = sessionStorage.getItem('previousPath');
-						window.location.href = previousPath || '/';
+						window.location.href = '/signin';
 					} else {
 						console.error(data.message);
-						alert('Login failed. Please check your username and password.');
+						alert(data.message);
 					}
 				})
 				.catch(error => {
@@ -42,7 +40,7 @@ function SignInPage() {
 			<div>
 				<Navbar/>
 				<div className='sign-in-container'>
-					<h2 style={{textAlign: 'center'}}>Sign In</h2>
+					<h2 style={{textAlign: 'center'}}>Sign Up</h2>
 					<div>
 						<label htmlFor="username">Username:</label>
 						<input
@@ -64,11 +62,11 @@ function SignInPage() {
 						/>
 					</div>
 					<div className='login-container'>
-						<button className="btn btn-primary" onClick={handleLogin}>Sign In</button>
+						<button className="btn btn-primary" onClick={handleSignUp}>Sign Up</button>
 					</div>
 				</div>
 			</div>
 	);
 }
 
-export default SignInPage;
+export default SignUpPage;

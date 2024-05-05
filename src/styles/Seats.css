@@ -40,8 +40,8 @@
 }
 
 .seat {
-    width: 40px;
-    height: 40px;
+    width: 30px;
+    height: 30px;
     background-color: #ddd;
     border: 1px solid #ccc;
     cursor: pointer;
@@ -87,4 +87,38 @@
 
 .order-container {
     margin: 20px;
+}
+
+/*.movie-description {*/
+/*    display: grid;*/
+/*    grid-template-columns: auto auto auto;*/
+/*    height: 200px;*/
+/*}*/
+
+/*.img-container img {*/
+/*    align-items: center;*/
+/*    height: fit-content;*/
+/*}*/
+.movie-description {
+    border: 1px solid #0d6efd;
+    padding: 10px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    max-height: 400px; /* Adjust the maximum width as needed */
+    margin: 20px 20px; /* Center the container horizontally */
+}
+
+.movie-info {
+    /*flex-grow: ; !* Allow the info section to grow to fill remaining space *!*/
+    margin: 0 20px; /* Add some margin between the sections */
+}
+.movie-title {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.movie-title h3 {
+    text-align: center
 }

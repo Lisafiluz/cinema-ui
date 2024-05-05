@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {useParams} from 'react-router-dom';
 import {SERVER_HOST} from '../config';
 import "../styles/Seats.css"
+import "../styles/Card.css"
 import Navbar from './Navbar';
 
 function ScreenPage() {
@@ -9,6 +10,7 @@ function ScreenPage() {
 	const [screenDetails, setScreenDetails] = useState(null);
 	const [selectedSeats, setSelectedSeats] = useState([]);
 	const [formattedDate, setFormattedDate] = useState('');
+	const [showTrailer, setShowTrailer] = useState(false);
 	const jwt = sessionStorage.getItem('jwt');
 
 
@@ -103,17 +105,36 @@ function ScreenPage() {
 				});
 	};
 
+	function handleTrailerClick() {
+		setShowTrailer(true);
+
+	}
+
 	return (
 			<div>
 				<Navbar/>
-				<h2>{movie.title}</h2>
-				<img src={movie.picUrl} alt={movie.title}/>
-				<p>Description: {movie.description}</p>
-				<p>Genre: {movie.genre}</p>
-				<p>Release Date: {new Date(movie.releaseDate).toDateString()}</p>
-
-				<h3>Hall: {hall.name}</h3>
-				<h4>Date: {formattedDate}</h4>
+				<div className="movie-description">
+					<div className="movie-title">
+						<h3><u>{movie.title}</u></h3>
+						<div className="screen-description">
+							<div><u>Hall</u>: {hall.name}</div>
+							<div><u>Date</u>: {formattedDate}</div>
+						</div>
+						<div>
+							<button className="btn btn-outline-primary" onClick={handleTrailerClick}>Trailer</button>
+						</div>
+					</div>
+					<div className="movie-info">
+						<div><u>Description</u>: {movie.description}</div>
+						<div><u>Genre</u>: {movie.genre}</div>
+						<div><u>Release Date</u>: {new Date(movie.releaseDate).toDateString()}</div>
+						<div><u>Review</u>: {movie.review}</div>
+						<div><u>Duration</u>: {movie.duration} minutes</div>
+					</div>
+					<div className="img-container">
+						<img src={movie.picUrl} alt={movie.title} style={{maxHeight: '200px'}}/>
+					</div>
+				</div>
 				<div className="seating-area">
 					<div className="screen">Screen</div>
 					<div className="seats-grid">{seatGrid}</div>
@@ -121,7 +142,15 @@ function ScreenPage() {
 						<button className="order-button" onClick={handleOrderClick}>Order</button>
 					</div>
 				</div>
-
+				{showTrailer && <div className="modal">
+					<div className="modal-content">
+						<span className="close" onClick={() => setShowTrailer(false)}>&times;</span>
+						<iframe width='inherit' height='300px' src={movie.trailerUrl} title="YouTube video player"
+						        frameBorder="0"
+						        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+						        referrerPolicy="strict-origin-when-cross-origin" allowFullScreen/>
+					</div>
+				</div>}
 			</div>
 	);
 }
