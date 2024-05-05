@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import Navbar from './Navbar';
-import MovieCard from './MovieCard';
+import Card from './MovieCard';
 import Seats from "./Seats";
+import { SERVER_HOST } from '../config';
 
-const API_BASE_URL = 'http://localhost:8080';
 const HomePage = () => {
 	const [movies, setMovies] = useState([]);
 	const [isLoading, setIsLoading] = useState(true);
@@ -12,15 +12,17 @@ const HomePage = () => {
 	useEffect(() => {
 		const fetchMovies = async () => {
 			try {
-				// Replace with your actual API endpoint if different
-				const response = await fetch(`${API_BASE_URL}/movie/popular`);
+				const response = await fetch(`${SERVER_HOST}/movie/popular`);
 				if (!response.ok) {
 					throw new Error('Something went wrong!');
 				}
 				const data = await response.json();
-				console.log(data)
-				setMovies(data.entities);
-				setIsLoading(false);
+				if (data.success) {
+					setMovies(data.entities);
+					setIsLoading(false);
+				} else {
+					console.error(data.message);
+				}
 			} catch (err) {
 				setError(err.message);
 				setIsLoading(false);
@@ -41,16 +43,17 @@ const HomePage = () => {
 	return (
 			<div>
 				<Navbar />
-				<div className="container mt-4">
+				<div className="container">
 					<div className="row">
 						{movies.map((movie) => (
-								<div className="col-md-4 mb-3" key={movie.movieId}>
-									<MovieCard movie={movie} />
+							<div class="col-sm-6 col-md-4" key={movie.movieId}>
+								<div class="thumbnail">
+									<Card movie={movie} />
 								</div>
+							</div>
 						))}
 					</div>
 				</div>
-				<Seats />
 			</div>
 	);
 };
