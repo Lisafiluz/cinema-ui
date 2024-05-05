@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {useParams} from 'react-router-dom';
 import {SERVER_HOST} from '../config';
+import "../styles/Seats.css"
 import Navbar from './Navbar';
 
 function ScreenPage() {
@@ -62,7 +63,7 @@ function ScreenPage() {
 							key={`${i}-${j}`}
 							className={seatClassName}
 							onClick={!booked ? () => handleSeatClick(i, j) : null}
-					></div>
+					/>
 			);
 		}
 		seatGrid.push(

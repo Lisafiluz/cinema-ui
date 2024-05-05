@@ -9,14 +9,14 @@ const Card = ({movie}) => {
 	return (
 			<>
 				<img src={imageUrl} className="" alt={movie.title}/>
-				<div class="caption">
+				<div className="caption">
 					<h5 className="">{movie.title}</h5>
 					<p className="">{movie.description}</p>
 					<p className="">Rating: {movie.review}</p>
 					<p className="">Genre: {movie.genre}</p>
 					<p className="">Release Date: {new Date(movie.releaseDate).getFullYear()}</p>
 					<p>
-						<a href={`/movie/${movie.movieId}`} class="btn btn-primary" role="button">Order</a>
+						<a href={`/movie/${movie.movieId}`} className="btn btn-primary" role="button">Order</a>
 						{/* <a href="#" class="btn btn-default" role="button">Button</a> */}
 					</p>
 				</div>

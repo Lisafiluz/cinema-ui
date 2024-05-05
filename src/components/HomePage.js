@@ -45,8 +45,8 @@ const HomePage = () => {
 				<div className="container">
 					<div className="row">
 						{movies.map((movie) => (
-								<div class="col-sm-6 col-md-4" key={movie.movieId}>
-									<div class="thumbnail">
+								<div className="col-sm-6 col-md-4" key={movie.movieId}>
+									<div className="thumbnail">
 										<Card movie={movie}/>
 									</div>
 								</div>
