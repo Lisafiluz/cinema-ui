@@ -1,4 +1,4 @@
-.sign-in-container{
+.sign-in-container {
     margin: auto;
     margin-top: 50px;
     width: 400px;
@@ -6,6 +6,7 @@
     padding: 30px;
     border-radius: 5px;
 }
+
 .login-container {
     text-align: center;
     padding: 20px;

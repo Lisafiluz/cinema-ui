@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, {useEffect, useState} from 'react';
 import Navbar from './Navbar';
 import Card from './MovieCard';
-import Seats from "./Seats";
-import { SERVER_HOST } from '../config';
+import {SERVER_HOST} from '../config';
 
 const HomePage = () => {
 	const [movies, setMovies] = useState([]);
@@ -42,15 +41,15 @@ const HomePage = () => {
 
 	return (
 			<div>
-				<Navbar />
+				<Navbar/>
 				<div className="container">
 					<div className="row">
 						{movies.map((movie) => (
-							<div class="col-sm-6 col-md-4" key={movie.movieId}>
-								<div class="thumbnail">
-									<Card movie={movie} />
+								<div class="col-sm-6 col-md-4" key={movie.movieId}>
+									<div class="thumbnail">
+										<Card movie={movie}/>
+									</div>
 								</div>
-							</div>
 						))}
 					</div>
 				</div>
