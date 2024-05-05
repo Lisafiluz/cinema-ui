@@ -2,9 +2,11 @@
     text-decoration: none;
     color: black;
 }
+
 .link:hover {
     background-color: rgb(232, 232, 232);
 }
+
 .card {
     display: flex;
 

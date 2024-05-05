@@ -4,7 +4,7 @@
     flex-direction: column;
     align-items: center;
 }
-  
+
 .screen {
     margin: auto;
     width: 60%;
@@ -28,10 +28,12 @@
     grid-template-columns: repeat(auto-fill, minmax(60px, 1fr));
     gap: 10px; */
 }
+
 .seat-row {
     display: flex;
     justify-content: center;
 }
+
 .screen-row {
     display: flex;
     justify-content: center;
@@ -50,18 +52,18 @@
 .seat.available:hover {
     background-color: #eaeaea;
 }
-  
+
 .seat.selected {
     background-color: #66bb6a;
     border-color: #388e3c;
 }
-  
+
 .seat.BOOKED {
     cursor: auto;
     background-color: #ef5350;
     border-color: #c62828;
 }
-  
+
 .seat.reserved {
     background-color: #ffb74d;
     border-color: #f57c00;
