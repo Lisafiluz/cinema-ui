@@ -36,3 +36,20 @@
         transform: rotate(360deg);
     }
 }
+
+table {
+    max-width: 100%; /* Set maximum width */
+    width: 100%; /* Ensure the table fills its container */
+    border-collapse: collapse; /* Optional: collapse table borders */
+}
+
+th, td {
+    padding: 8px;
+    border: 1px solid #ddd;
+    text-align: left;
+    max-width: 200px; /* Set maximum width for content inside cells */
+    overflow: hidden; /* Hide overflow content */
+    white-space: nowrap; /* Prevent content from wrapping */
+    text-overflow: ellipsis; /* Show ellipsis (...) for overflow content */
+    font-size: 1vw;
+}

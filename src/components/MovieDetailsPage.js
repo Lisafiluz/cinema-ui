@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {Link, useParams} from 'react-router-dom';
-import {SERVER_HOST} from '../config';
+import {MOVIES_PIC_DIR, SERVER_HOST} from '../config';
 import Navbar from './Navbar';
 
 function MovieDetailsPage() {
@@ -52,7 +52,7 @@ function MovieDetailsPage() {
 					<div><u>Duration</u>: {movieDetails[0].movie.duration} minutes</div>
 				</div>
 				<div className="img-container">
-					<img src={movieDetails[0].movie.picUrl} alt={movieDetails[0].movie.title} style={{maxHeight: '200px'}}/>
+					<img src={MOVIES_PIC_DIR+movieDetails[0].movie.picUrl} alt={movieDetails[0].movie.title} style={{maxHeight: '200px'}}/>
 				</div>
 			</div>
 		</>)

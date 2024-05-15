@@ -2,18 +2,27 @@ import React, {useEffect, useState} from 'react';
 import {SERVER_HOST} from '../config';
 import Navbar from './Navbar';
 import "../styles/Modal.css"
+import {useLocation} from "react-router-dom";
+import ConfirmationComponent from "./ConfirmationComponent";
 
 function MyOrdersPage() {
+	const [showConfirmation, setConfirmation] = useState(false);
 	const [myOrders, setMyOrders] = useState(null);
 	const [showSeatDetails, setShowSeatDetails] = useState(false);
 	const [selectedOrderSeats, setSelectedOrderSeats] = useState([]);
+
+	const location = useLocation();
+	const params = new URLSearchParams(location.search);
+
+	// Access parameters using the 'get' method of URLSearchParams
+	const key = params.get('key') || "user";
 
 
 	const jwt = sessionStorage.getItem('jwt');
 
 
-	useEffect(() => {
-		fetch(`${SERVER_HOST}/user/orders`,
+	function fetchData() {
+		fetch(`${SERVER_HOST}/${key}/orders`,
 				{
 					headers: {
 						'Authorization': `Bearer ${jwt}`
@@ -22,6 +31,7 @@ function MyOrdersPage() {
 				.then(response => response.json())
 				.then(data => {
 					if (data.success) {
+						data.entities.sort((a,b) => a.orderId > b.orderId ? 1 : -1)
 						setMyOrders(data.entities);
 					} else {
 						console.error(data.message);
@@ -32,6 +42,10 @@ function MyOrdersPage() {
 					}
 				})
 				.catch(error => console.error('Error fetching orders:', error));
+	}
+
+	useEffect(() => {
+		fetchData();
 	}, []);
 
 	if (!myOrders) {
@@ -65,7 +79,8 @@ function MyOrdersPage() {
 					if (!response.ok) {
 						throw new Error('Failed to place order');
 					}
-					window.location.href = '/confirmation';
+					setConfirmation(true)
+					fetchData()
 				})
 				.catch(error => {
 					console.error('Error placing order:', error);
@@ -73,7 +88,7 @@ function MyOrdersPage() {
 	}
 
 	const handleCancelSeat = (seatId) => {
-		fetch(`${SERVER_HOST}/order-seat/`, {
+		fetch(`${SERVER_HOST}/order/order-seat`, {
 			method: 'DELETE',
 			headers: {
 				'Content-Type': 'application/json',
@@ -87,7 +102,9 @@ function MyOrdersPage() {
 					if (!response.ok) {
 						throw new Error('Failed to place order');
 					}
-					window.location.href = '/confirmation';
+					setShowSeatDetails(false)
+					setConfirmation(true)
+					fetchData()
 				})
 				.catch(error => {
 					console.error('Error placing order:', error);
@@ -106,6 +123,7 @@ function MyOrdersPage() {
 					<thead>
 					<tr>
 						<th>Order ID</th>
+						{key === "admin" && <th>User ID</th>}
 						<th>Movie</th>
 						<th>Hall</th>
 						<th>Movie Date</th>
@@ -119,6 +137,7 @@ function MyOrdersPage() {
 					{myOrders.map(order => (
 							<tr key={order.orderId}>
 								<td>{order.orderId}</td>
+								{key === "admin" && <td>{order.userId}</td>}
 								<td>{order.screen.movie.title}</td>
 								<td>{order.screen.hall.name}</td>
 								<td>{formatDate(order.screen.date)}</td>
@@ -179,6 +198,8 @@ function MyOrdersPage() {
 							</div>
 						</div>
 				)}
+
+				{showConfirmation && <ConfirmationComponent />}
 			</div>
 
 	);

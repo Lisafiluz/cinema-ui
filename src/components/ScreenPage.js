@@ -1,9 +1,10 @@
 import React, {useEffect, useState} from 'react';
 import {useParams} from 'react-router-dom';
-import {SERVER_HOST} from '../config';
+import {MOVIES_PIC_DIR, SERVER_HOST} from '../config';
 import "../styles/Seats.css"
 import "../styles/Card.css"
 import Navbar from './Navbar';
+import ConfirmationComponent from "./ConfirmationComponent";
 
 function ScreenPage() {
 	const {screenId} = useParams();
@@ -11,10 +12,11 @@ function ScreenPage() {
 	const [selectedSeats, setSelectedSeats] = useState([]);
 	const [formattedDate, setFormattedDate] = useState('');
 	const [showTrailer, setShowTrailer] = useState(false);
+	const [showConfirmation, setConfirmation] = useState(false);
 	const jwt = sessionStorage.getItem('jwt');
 
 
-	useEffect(() => {
+	function fetchData() {
 		fetch(`${SERVER_HOST}/screen/${screenId}`)
 				.then(response => response.json())
 				.then(data => {
@@ -28,6 +30,10 @@ function ScreenPage() {
 					}
 				})
 				.catch(error => console.error('Error fetching screen details:', error));
+	}
+
+	useEffect(() => {
+		fetchData();
 	}, [screenId]);
 
 	if (!screenDetails) {
@@ -95,13 +101,19 @@ function ScreenPage() {
 		})
 				.then(response => {
 					if (!response.ok) {
-						throw new Error('Failed to place order');
+						if (response.status === 401) {
+							alert("Unauthorized!")
+						} else {
+							alert("Please try again")
+						}
+					} else {
+						setSelectedSeats([])
+						setConfirmation(true)
+						fetchData()
 					}
-					window.location.href = '/confirmation';
 				})
 				.catch(error => {
 					console.error('Error placing order:', error);
-					alert('Failed to place order. Please try again.');
 				});
 	};
 
@@ -111,7 +123,7 @@ function ScreenPage() {
 	}
 
 	return (
-			<div>
+			<>
 				<Navbar/>
 				<div className="movie-description">
 					<div className="movie-title">
@@ -132,7 +144,7 @@ function ScreenPage() {
 						<div><u>Duration</u>: {movie.duration} minutes</div>
 					</div>
 					<div className="img-container">
-						<img src={movie.picUrl} alt={movie.title} style={{maxHeight: '200px'}}/>
+						<img src={MOVIES_PIC_DIR + movie.picUrl} alt={movie.title} style={{maxHeight: '200px'}}/>
 					</div>
 				</div>
 				<div className="seating-area">
@@ -151,7 +163,9 @@ function ScreenPage() {
 						        referrerPolicy="strict-origin-when-cross-origin" allowFullScreen/>
 					</div>
 				</div>}
-			</div>
+
+				{showConfirmation && <ConfirmationComponent />}
+			</>
 	);
 }
 
