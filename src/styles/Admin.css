@@ -1,0 +1,24 @@
+.admin-menu-container {
+    display: grid;
+    grid-template-columns: auto auto;
+    justify-content: space-evenly;
+}
+
+.admin-card {
+    text-align: center;
+    font-size: 40px;
+    color: #5a5d62;
+    border: 1px solid #2b3035;
+    border-radius: 5px;
+    width: 200px;
+    height: 200px;
+    align-content: center;
+    margin: 30px;
+    /*padding: 20px;*/
+}
+
+.admin-card:hover {
+    cursor: pointer;
+    background-color: #5a5d62;
+    color: white;
+}

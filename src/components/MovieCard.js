@@ -1,6 +1,7 @@
 import React from 'react';
 import '../styles/Card.css'
-import 'bootstrap/dist/css/bootstrap.min.css'; // Import Bootstrap CSS
+import 'bootstrap/dist/css/bootstrap.min.css';
+import {MOVIES_PIC_DIR} from "../config"; // Import Bootstrap CSS
 
 const Card = ({movie}) => {
 	return (
@@ -8,7 +9,7 @@ const Card = ({movie}) => {
 				<div className="card caption card-cont">
 					<div className="movie-card-desc">
 						<h5 className="">{movie.title}</h5>
-						<div className="">{movie.description}</div>
+						<div className="text">{movie.description}</div>
 						<div className="">Rating: {movie.review}</div>
 						<div className="">Genre: {movie.genre}</div>
 						<div className="">Release Date: {new Date(movie.releaseDate).getFullYear()}</div>
@@ -18,7 +19,7 @@ const Card = ({movie}) => {
 						</div>
 					</div>
 					<div>
-						<img src={movie.picUrl} className="" alt={movie.title}/>
+						<img src={MOVIES_PIC_DIR + movie.picUrl} className="" alt={movie.title}/>
 					</div>
 				</div>
 				{/* <div className="card" style={{ width: '18rem' }}>
