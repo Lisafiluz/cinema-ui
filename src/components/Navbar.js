@@ -40,9 +40,9 @@ const Navbar = () => {
 							<li className="nav-item">
 								<Link className="nav-link" to="/">Home</Link>
 							</li>
-							<li>
+							{sessionStorage.getItem('jwt') !== null && <li>
 								<Link className='nav-link' to={{pathname: "/orders", search: "?key=user"}}>My Orders</Link>
-							</li>
+							</li>}
 							{isAdmin && <li>
 								<Link className='nav-link' to="/admin">Admin Workspace</Link>
 							</li>}
