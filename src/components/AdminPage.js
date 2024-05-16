@@ -39,12 +39,14 @@ function AdminPage() {
 					<div className="admin-card" key="Movies">
 						<Link className='nav-link' to={{ pathname: "/admin/movies" }}>Movies</Link>
 					</div>
-					<div className="admin-card" key="Halls" onClick={() => {handleComingSoon()}}>Halls</div>
-					<div className="admin-card" key="Screens" onClick={() => {handleComingSoon()}}>Screens</div>
+					<div className="admin-card" key="Screens">
+						<Link className='nav-link' to={{ pathname: "/admin/screens" }}>Screens</Link>
+					</div>
 					<div className="admin-card" key="Orders">
 						<Link className='nav-link' to={{ pathname: "/orders", search: "?key=admin" }}>Orders</Link>
 					</div>
 					<div className="admin-card" key="Users" onClick={() => {handleComingSoon()}}>Users</div>
+					<div className="admin-card" key="Users" onClick={() => {handleComingSoon()}}>Halls</div>
 				</div>
 			</div>
 	);

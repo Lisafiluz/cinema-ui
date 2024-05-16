@@ -9,7 +9,7 @@ function AdminMoviesPage() {
 	const [showConfirmation, setConfirmation] = useState(false);
 	const [movies, setMMovies] = useState(null);
 	const jwt = sessionStorage.getItem('jwt');
-	const [showSeatDetails, setShowMovieDetails] = useState(false);
+	const [showMovieDetails, setShowMovieDetails] = useState(false);
 	const [movieId, setSelectedMovie] = useState('');
 
 	const [title, setTitle] = useState('');
@@ -100,7 +100,7 @@ function AdminMoviesPage() {
 		})
 				.then(response => {
 					if (!response.ok) {
-						throw new Error('Failed to edit movie');
+						response.json().then(data => alert(data.message))
 					}
 					setShowMovieDetails(false)
 					setConfirmation(true)
@@ -140,7 +140,7 @@ function AdminMoviesPage() {
 									<td>{formatDate(movie.releaseDate)}</td>
 									<td>{movie.genre}</td>
 									<td>{movie.picUrl}</td>
-									<td>{movie.trailerUrl}</td>
+									<td style={{maxWidth:"120px"}}>{movie.trailerUrl}</td>
 									<td>{movie.duration}</td>
 									<td>{movie.isPopular.toString()}</td>
 									<td>{movie.review}</td>
@@ -159,7 +159,7 @@ function AdminMoviesPage() {
 						</tbody>
 					</table>
 				</div>
-				{showSeatDetails && (
+				{showMovieDetails && (
 						<div className="modal">
 							<div className="modal-content">
 								<span className="close" onClick={() => setShowMovieDetails(false)}>&times;</span>

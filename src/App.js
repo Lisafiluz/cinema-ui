@@ -9,6 +9,7 @@ import MyOrdersPage from './components/MyOrdersPage';
 import SignUpPage from "./components/SignUpPage";
 import AdminPage from "./components/AdminPage";
 import AdminMoviesPage from "./components/AdminMoviesPage";
+import AdminScreensPage from "./components/AdminScreensPage";
 
 const App = () => {
 	return (
@@ -24,6 +25,7 @@ const App = () => {
 					<Route path="/admin" element={<AdminPage/>}/>
 					<Route path="/admin/orders" element={<MyOrdersPage/>}/>
 					<Route path="/admin/movies" element={<AdminMoviesPage/>}/>
+					<Route path="/admin/screens" element={<AdminScreensPage/>}/>
 					{/* Define other routes here */}
 				</Routes>
 			</Router>
