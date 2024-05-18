@@ -1,4 +1,3 @@
-
 # Use the official Node.js 14 image as a base for building the app
 FROM node:14-alpine AS builder
 
@@ -6,29 +5,29 @@ FROM node:14-alpine AS builder
 WORKDIR /app
 
 # Copy package.json and package-lock.json to the working directory
-COPY package*.json ./
+COPY package*.json /app/
 
 # Install dependencies
 RUN npm install
 
 # Copy the remaining app files to the working directory
-COPY . .
+COPY . /app
 
 # Build the app for production
 RUN npm run build
 
-# Use the official Apache HTTP Server image as base for serving the app
-FROM httpd:alpine
+# Use the official NGINX image as base for serving the app
+FROM nginx:stable-alpine
 
-# Copy the built app files from the builder stage to the Apache document root
-COPY --from=builder /app/build/ /usr/local/apache2/htdocs/
+# Copy the built app files from the builder stage to the NGINX document root
+COPY --from=builder /app/build /usr/share/nginx/html
 
-# Apache by default listens on port 80, so no need to expose any additional ports
-# Apache by default listens on port 80, so change the port to 3000
+# Remove default nginx config and insert your own
+RUN rm /etc/nginx/conf.d/default.conf
+COPY ./nginx.conf /etc/nginx/conf.d
+
+# Expose port 3000 to the outside world
 EXPOSE 3000
 
-# Update Apache configuration to use port 3000
-RUN sed -i 's/80/3000/g' /usr/local/apache2/conf/httpd.conf
-
-# (Optional) If you need to customize the Apache configuration, you can copy your custom configuration file
-# COPY ./path/to/your/httpd.conf /usr/local/apache2/conf/httpd.conf
+# Start NGINX
+CMD ["nginx", "-g", "daemon off;"]
